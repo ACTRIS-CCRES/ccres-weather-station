@@ -1,0 +1,4 @@
+# Add to LFS all data files
+ccres_weather_station/test/data/** filter=lfs diff=lfs merge=lfs -text
+# Add to LFS all nc files
++*.nc filter=lfs diff=lfs merge=lfs -text

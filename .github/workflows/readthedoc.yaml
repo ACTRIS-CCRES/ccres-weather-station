@@ -1,0 +1,17 @@
+# Readthedocs does not support pushing doc directly, it must fetch the repo
+# by itself through webhook.
+
+# Create a project through API
+# https://docs.readthedocs.io/en/stable/api/v3.html#project-create
+
+# Create a webhook programatically with github token
+# https://docs.github.com/en/rest/webhooks/repos#create-a-repository-webhook
+
+# Only run workflow first time :
+# https://stackoverflow.com/questions/65778838/github-actions-only-on-first-push
+
+# on: push
+# name: deploy
+# jobs:
+#   deploy:
+#     if: github.run_number == 1
