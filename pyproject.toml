@@ -69,7 +69,8 @@ dev = [
 
 
 ]
-[project.entry-points."ccres_weather_station"]
+
+[project.scripts]
 ccres_weather_station = "ccres_weather_station.cli.cli:main"
 
 [tool.setuptools]

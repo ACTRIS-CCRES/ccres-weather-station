@@ -27,7 +27,7 @@ def test_command_line_interface():
     runner = CliRunner()
     result = runner.invoke(cli.main)
     assert result.exit_code == 0
-    assert "--help  Show this message and exit." in result.output
+    assert "ccres_weather_station.cli.main" in result.output
 
 
 def test_command_line_interface_help():
@@ -35,4 +35,4 @@ def test_command_line_interface_help():
     runner = CliRunner()
     help_result = runner.invoke(cli.main, ["--help"])
     assert help_result.exit_code == 0
-    assert "ccres_project.cli.main" in help_result.output
+    assert "--help  Show this message and exit." in help_result.output
