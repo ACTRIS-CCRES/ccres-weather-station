@@ -1,9 +1,12 @@
-""" Module that handle some attributes generation and also the saving of file
+"""Module that handle some attributes generation.
+
+Also handle saving of file.
 """
 
-import pandas as pd
-from pathlib import Path
 import datetime as dt
+from pathlib import Path
+
+import pandas as pd
 
 
 def add_time_coverage_attributes(ds, dim_time):
@@ -42,9 +45,7 @@ def _get_software_git_infos():
         return ""
 
     try:
-        main_repo = Repo(
-            str(Path(__file__).parent), search_parent_directories=True
-        )
+        main_repo = Repo(str(Path(__file__).parent), search_parent_directories=True)
 
         hash_last_commit_message = main_repo.head.commit.hexsha
 
@@ -53,9 +54,7 @@ def _get_software_git_infos():
         if tags != []:
             tag_version = tags[-1]
 
-        return (
-            f"TAG = {tag_version}, COMMIT_HASH = {hash_last_commit_message}."
-        )
+        return f"TAG = {tag_version}, COMMIT_HASH = {hash_last_commit_message}."
 
     except InvalidGitRepositoryError:
         return ""

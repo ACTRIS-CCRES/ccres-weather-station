@@ -1,10 +1,8 @@
-import os
 import pytest
-import pandas as pd
 import xarray as xr
-from pathlib import Path
-from ccres_weather_station.readers.register import register_reader, READERS
+
 from ccres_weather_station.readers.base import BaseReader
+from ccres_weather_station.readers.register import READERS, register_reader
 from ccres_weather_station.types import PathLike
 
 

@@ -1,16 +1,17 @@
 from pathlib import Path
-from typing import Union, Any
+from typing import Any, Union
 
+import numpy as np
 import pandas as pd
 import xarray as xr
-import numpy as np
+
+from ccres_weather_station.config.config import Config
 from ccres_weather_station.readers.base import BaseReader
 from ccres_weather_station.readers.register import register_reader
-from ccres_weather_station.config.config import Config
 
 
 def _sirta_date_parser(concatenated_column) -> Any:
-    """_sirta_date_parser pandas will pass
+    """_sirta_date_parser pandas will pass.
 
     1) Pass one or more arrays (as defined by parse_dates) as arguments
     2) concatenate (row-wise) the string values from the columns defined by

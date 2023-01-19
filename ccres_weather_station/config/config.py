@@ -1,9 +1,10 @@
-from ccres_weather_station.types import PathLike
-import toml
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, Optional
-from dataclasses import dataclass
 
+import toml
+
+from ccres_weather_station.types import PathLike
 
 DEFAULT_CONFIG = Path(__file__).parent / "config.toml"
 
@@ -30,7 +31,7 @@ class CoordConfig:
 
 
 class Config:
-    """Configuration object containing:
+    """Configuration object containing metdata.
 
     - the variables names
     - the default metadata for global attributes
@@ -56,15 +57,12 @@ class Config:
         # Load variables config
         _variables = d["variables"]["meta"]
         variables = {
-            name: VariableConfig(**attrs)
-            for (name, attrs) in _variables.items()
+            name: VariableConfig(**attrs) for (name, attrs) in _variables.items()
         }
 
         # Load coords config
         _coords = d["coords"]["meta"]
-        coords = {
-            name: CoordConfig(**attrs) for (name, attrs) in _coords.items()
-        }
+        coords = {name: CoordConfig(**attrs) for (name, attrs) in _coords.items()}
 
         global_attrs = d["attrs"]
 

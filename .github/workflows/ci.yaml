@@ -34,8 +34,6 @@ jobs:
           pip install .[dev]
 
       - name: Compute pre-commit cache key
-        if: matrix.session == 'pre-commit'
-        id: pre-commit-cache
         run: |
           pre-commit run --all-files
 

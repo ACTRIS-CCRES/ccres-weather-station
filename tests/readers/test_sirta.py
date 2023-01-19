@@ -1,10 +1,10 @@
-import os
+from pathlib import Path
 
 import pandas as pd
 import xarray as xr
-from pathlib import Path
-from ccres_weather_station.readers.sirta import SirtaReader
+
 from ccres_weather_station.config.config import Config
+from ccres_weather_station.readers.sirta import SirtaReader
 
 SIRTA_FILE = Path(
     Path(__file__).parent
