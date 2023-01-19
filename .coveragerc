@@ -1,3 +1,5 @@
 [run]
 omit=
     ccres_weather_station/tests/* ,\
+    ./tests/* ,\
+    setup.py
