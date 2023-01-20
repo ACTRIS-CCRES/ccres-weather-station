@@ -42,14 +42,13 @@ jobs:
 
       - name: Install dependencies
         # Activate or create env from cache and install package
+        # https://stackoverflow.com/questions/74668349/how-to-activate-a-virtualenv-in-a-github-action
+        # Note that you have to activate the virtualenv in every step
+        # because GitHub actions doesn't preserve the environment
         run: |
           [[ -d ./.venv ]] || python -m venv ./.venv
           source ./.venv/bin/activate
           pip install -U '.[dev]'
-
-      - name: Test python
-        # Activate or create env from cache and install package
-        run: pre-commit
 
       - name: Cache pre-commits
         id: cache-pre-commits
@@ -67,7 +66,7 @@ jobs:
 
       - name: Compute pre-commit cache key
         run: |
-          pre-commit run --all-files
+          source ./.venv/bin/activate && pre-commit run --all-files
 
   multi-os-tests:
     name: Test for Python ${{ matrix.python }} on ${{ matrix.os }}
@@ -117,7 +116,7 @@ jobs:
 
       - name: Run tests
         run: |
-          python -m pytest
+          source ./.venv/bin/activate && python -m pytest
 
   linux-tests:
     name: Tests for Python 3.10 on ubuntu-latest
@@ -158,7 +157,7 @@ jobs:
 
       - name: Run tests
         run: |
-          python -m pytest
+          source ./.venv/bin/activate && python -m pytest
 
       - name: Upload coverage data
         uses: "actions/upload-artifact@v3"
