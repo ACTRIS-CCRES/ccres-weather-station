@@ -35,9 +35,8 @@ jobs:
         uses: actions/cache@v3
         # https://tobiasmcnulty.com/posts/caching-pre-commit/
         # This restore and/or save in the same action
-        id: cache-venv
         with:
-          path: ./.venv/
+          path: ~/.cache/pip
           key: ${{ runner.os }}-python-3.10-venv-${{ hashFiles('pyproject.toml') }}
 
       - name: Install dependencies
@@ -46,8 +45,6 @@ jobs:
         # Note that you have to activate the virtualenv in every step
         # because GitHub actions doesn't preserve the environment
         run: |
-          [[ -d ./.venv ]] || python -m venv ./.venv
-          source ./.venv/bin/activate
           pip install -U '.[dev]'
 
       - name: Cache pre-commits
@@ -66,7 +63,7 @@ jobs:
 
       - name: Compute pre-commit cache key
         run: |
-          source ./.venv/bin/activate && pre-commit run --all-files
+          pre-commit run --all-files
 
   multi-os-tests:
     name: Test for Python ${{ matrix.python }} on ${{ matrix.os }}
@@ -76,12 +73,33 @@ jobs:
     needs: pre-commit
     strategy:
       fail-fast: false
+      # https://github.com/actions/cache/blob/main/examples.md#multiple-oss-in-a-workflow-with-a-matrix
       matrix:
         include:
-          - { python: "3.10", os: "windows-latest", session: "tests" }
-          - { python: "3.10", os: "macos-latest", session: "tests" }
-          - { python: "3.9", os: "ubuntu-latest", session: "tests" }
-          - { python: "3.8", os: "ubuntu-latest", session: "tests" }
+          - {
+              python: "3.10",
+              os: "windows-latest",
+              session: "tests",
+              cache-path: ~\AppData\Local\pip\Cache,
+            }
+          - {
+              python: "3.10",
+              os: "macos-latest",
+              session: "tests",
+              cache-path: ~/Library/Caches/pip,
+            }
+          - {
+              python: "3.9",
+              os: "ubuntu-latest",
+              session: "tests",
+              cache-path: ~/.cache/pip,
+            }
+          - {
+              python: "3.8",
+              os: "ubuntu-latest",
+              session: "tests",
+              cache-path: ~/.cache/pip,
+            }
 
     env:
       FORCE_COLOR: "1"
@@ -100,23 +118,20 @@ jobs:
 
       - name: Cache python environment
         uses: actions/cache@v3
-        # https://tobiasmcnulty.com/posts/caching-pre-commit/
-        # This restore and/or save in the same action
-        id: cache-venv
         with:
-          path: ./.venv/
-          key: ${{ matrix.os }}-python-${{ matrix.python }}-venv-${{ hashFiles('pyproject.toml') }}
+          path: ${{ matrix.cache-path }}
+          key: ${{ runner.os }}-python-${{python}}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
 
       - name: Install dependencies
         # Activate or create env from cache and install package
         run: |
-          [[ -d ./.venv ]] || python -m venv ./.venv
-          source ./.venv/bin/activate
           pip install -U '.[dev]'
 
       - name: Run tests
         run: |
-          source ./.venv/bin/activate && python -m pytest
+          python -m pytest
 
   linux-tests:
     name: Tests for Python 3.10 on ubuntu-latest
@@ -143,21 +158,18 @@ jobs:
         uses: actions/cache@v3
         # https://tobiasmcnulty.com/posts/caching-pre-commit/
         # This restore and/or save in the same action
-        id: cache-venv
         with:
-          path: ./.venv/
-          key: ${{ runner.os }}-python-3.10-venv-${{ hashFiles('pyproject.toml') }}
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-python-3.10-pip-${{ hashFiles('pyproject.toml') }}
 
       - name: Install dependencies
         # Activate or create env from cache and install package
         run: |
-          [[ -d ./.venv ]] || python -m venv ./.venv
-          source ./.venv/bin/activate
           pip install -U '.[dev]'
 
       - name: Run tests
         run: |
-          source ./.venv/bin/activate && python -m pytest
+          python -m pytest
 
       - name: Upload coverage data
         uses: "actions/upload-artifact@v3"
