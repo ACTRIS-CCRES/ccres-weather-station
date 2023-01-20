@@ -1,4 +1,4 @@
-name: Tests suite
+name: CI
 
 on:
   push:
@@ -156,25 +156,6 @@ jobs:
           fail_ci_if_error: true
           files: coverage.xml
           verbose: true
-
-  flake8:
-    name: Flake8 check
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out the repository
-        uses: actions/checkout@v3
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.10"
-
-      - name: Install dependencies
-        run: |
-          pip install .[dev]
-      - name: Run MyPy
-        run: |
-          flake8
 
   test-pypi:
     name: Deploy Package to Test PyPI
