@@ -23,20 +23,34 @@ jobs:
     steps:
       - name: Check out the repository
         uses: actions/checkout@v3
+        with:
+          lfs: true
 
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: "3.10"
 
+      - name: Cache python environment
+        uses: actions/cache@v3
+        # https://tobiasmcnulty.com/posts/caching-pre-commit/
+        # This restore and/or save in the same action
+        id: cache-venv
+        with:
+          path: ./.venv/
+          key: ${{ runner.os }}-python-3.10-venv-${{ hashFiles('pyproject.toml') }}
+
       - name: Install dependencies
+        # Activate or create env from cache and install package
         run: |
-          pip install .[dev]
+          [[ -d ./.venv ]] || python -m venv ./.venv \
+          source ./.venv/bin/activate \
+          pip install -U .[dev]
 
       - name: Cache pre-commits
         id: cache-pre-commits
         # https://tobiasmcnulty.com/posts/caching-pre-commit/
-        # This restore and/or save in the same actions
+        # This restore and/or save in the same action
         uses: actions/cache@v3
         with:
           path: ~/.cache/pre-commit/
@@ -73,20 +87,29 @@ jobs:
     steps:
       - name: Check out the repository
         uses: actions/checkout@v3
+        with:
+          lfs: true
 
       - name: Set up Python ${{ matrix.python }}
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python }}
 
-      - name: Upgrade pip
-        run: |
-          pip install pip
-          pip --version
+      - name: Cache python environment
+        uses: actions/cache@v3
+        # https://tobiasmcnulty.com/posts/caching-pre-commit/
+        # This restore and/or save in the same action
+        id: cache-venv
+        with:
+          path: ./.venv/
+          key: ${{ matrix.os }}-python-${{ matrix.python }}-venv-${{ hashFiles('pyproject.toml') }}
 
       - name: Install dependencies
+        # Activate or create env from cache and install package
         run: |
-          pip install .[dev]
+          [[ -d ./.venv ]] || python -m venv ./.venv \
+          source ./.venv/bin/activate \
+          pip install -U .[dev]
 
       - name: Run tests
         run: |
@@ -105,20 +128,29 @@ jobs:
     steps:
       - name: Check out the repository
         uses: actions/checkout@v3
+        with:
+          lfs: true
 
       - name: Set up Python 3.10
         uses: actions/setup-python@v4
         with:
           python-version: "3.10"
 
-      - name: Upgrade pip
-        run: |
-          pip install pip
-          pip --version
+      - name: Cache python environment
+        uses: actions/cache@v3
+        # https://tobiasmcnulty.com/posts/caching-pre-commit/
+        # This restore and/or save in the same action
+        id: cache-venv
+        with:
+          path: ./.venv/
+          key: ${{ runner.os }}-python-3.10-venv-${{ hashFiles('pyproject.toml') }}
 
       - name: Install dependencies
+        # Activate or create env from cache and install package
         run: |
-          pip install .[dev]
+          [[ -d ./.venv ]] || python -m venv ./.venv \
+          source ./.venv/bin/activate \
+          pip install -U .[dev]
 
       - name: Run tests
         run: |
@@ -139,6 +171,8 @@ jobs:
     steps:
       - name: Check out the repository
         uses: actions/checkout@v3
+        with:
+          lfs: true
 
       - name: Download coverage data
         uses: actions/download-artifact@v3
@@ -164,6 +198,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
+          lfs: true
           fetch-depth: 0
 
       - name: Set up Python
@@ -189,6 +224,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
+          lfs: true
           fetch-depth: 0
 
       - name: Set up Python
