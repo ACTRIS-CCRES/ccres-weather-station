@@ -43,9 +43,13 @@ jobs:
       - name: Install dependencies
         # Activate or create env from cache and install package
         run: |
-          [[ -d ./.venv ]] || python -m venv ./.venv \
-          source ./.venv/bin/activate \
-          pip install -U .[dev]
+          [[ -d ./.venv ]] || python -m venv ./.venv
+          source ./.venv/bin/activate
+          pip install -U '.[dev]'
+
+      - name: Test python
+        # Activate or create env from cache and install package
+        run: pre-commit
 
       - name: Cache pre-commits
         id: cache-pre-commits
@@ -107,9 +111,9 @@ jobs:
       - name: Install dependencies
         # Activate or create env from cache and install package
         run: |
-          [[ -d ./.venv ]] || python -m venv ./.venv \
-          source ./.venv/bin/activate \
-          pip install -U .[dev]
+          [[ -d ./.venv ]] || python -m venv ./.venv
+          source ./.venv/bin/activate
+          pip install -U '.[dev]'
 
       - name: Run tests
         run: |
@@ -148,9 +152,9 @@ jobs:
       - name: Install dependencies
         # Activate or create env from cache and install package
         run: |
-          [[ -d ./.venv ]] || python -m venv ./.venv \
-          source ./.venv/bin/activate \
-          pip install -U .[dev]
+          [[ -d ./.venv ]] || python -m venv ./.venv
+          source ./.venv/bin/activate
+          pip install -U '.[dev]'
 
       - name: Run tests
         run: |
