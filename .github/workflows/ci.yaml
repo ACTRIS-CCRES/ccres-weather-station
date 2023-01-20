@@ -120,7 +120,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ${{ matrix.cache-path }}
-          key: ${{ runner.os }}-python-${{python}}-pip-${{ hashFiles('**/requirements.txt') }}
+          key: ${{ runner.os }}-python-${{ matrix.python }}-pip-${{ hashFiles('pyproject.toml') }}
           restore-keys: |
             ${{ runner.os }}-pip-
 
