@@ -33,6 +33,20 @@ jobs:
         run: |
           pip install .[dev]
 
+      - name: Cache pre-commits
+        id: cache-pre-commits
+        # https://tobiasmcnulty.com/posts/caching-pre-commit/
+        # This restore and/or save in the same actions
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pre-commit/
+          key: pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
+
+      - name: Install pre-commits
+        # https://github.com/actions/cache#restoring-and-saving-cache-using-a-single-action
+        if: steps.cache-pre-commits.outputs.cache-hit != 'true'
+        run: pre-commit install
+
       - name: Compute pre-commit cache key
         run: |
           pre-commit run --all-files

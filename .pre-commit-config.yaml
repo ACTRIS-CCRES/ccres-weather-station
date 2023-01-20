@@ -51,3 +51,7 @@ repos:
       - id: pydocstyle
         additional_dependencies: [".[toml]"]
         args: ["--config", ".pydocstyle.ini"]
+  - repo: https://github.com/pycqa/flake8
+    rev: 6.0.0
+    hooks:
+      - id: flake8
