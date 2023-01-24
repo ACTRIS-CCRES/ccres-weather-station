@@ -53,6 +53,7 @@ dev = [
     "sphinx_rtd_theme>=0.4.3",
     "myst",
     "myst-parser",
+    "sphinx_book_theme",
 
     # Tox
     "tox",
