@@ -17,13 +17,14 @@ sys.path.insert(0, os.path.abspath("../.."))
 
 from docs.scripts.plot import make_plots
 
+BASE_URL = "https://github.com/ACTRIS-CCRES/ccres-weather-station"
 # -- Project information -----------------------------------------------------
 
 project = "ccres_weather_station"
-copyright = "ACTRIS"
+copyright = "CNRS/École Polytechnique"
 author = "ACTRIS-CCRES"
 
-
+LOGO_PATH = os.path.join(os.path.dirname(__file__), "assets/logo_actris_ccress.png")
 # -- General configuration ---------------------------------------------------
 
 # Add any Sphinx extension module names here, as strings. They can be
@@ -32,9 +33,24 @@ author = "ACTRIS-CCRES"
 extensions = [
     "sphinx_rtd_theme",
     "sphinx.ext.autodoc",
+    "sphinx.ext.autosummary",
     "sphinx.ext.napoleon",
+    "sphinx.ext.linkcode",
     "myst_parser",
 ]
+
+
+def linkcode_resolve(domain, info):
+    print(info)
+    if domain != "py":
+        return None
+    if not info["module"]:
+        return None
+    filename = info["module"].replace(".", "/")
+    return f"{BASE_URL}/tree/main/{filename}.py"
+
+
+autosummary_generate = True
 
 napoleon_google_docstring = True
 napoleon_numpy_docstring = True
@@ -51,7 +67,17 @@ napoleon_preprocess_types = False
 napoleon_type_aliases = None
 napoleon_attr_annotations = True
 
-source_suffix = {".rst": "restructuredtext", ".txt": "markdown", ".md": "markdown"}
+
+autodoc_default_options = {
+    "members": True,
+    "show-inheritance": True,
+}
+
+source_suffix = {
+    ".rst": "restructuredtext",
+    ".txt": "markdown",
+    ".md": "markdown",
+}
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
@@ -62,25 +88,42 @@ templates_path = ["_templates"]
 exclude_patterns = []
 
 html_sidebars = {
-    "**": ["globaltoc.html", "relations.html", "sourcelink.html", "searchbox.html"]
+    "**": [
+        "sidebar-logo.html",
+        "search-field.html",
+        "sbt-sidebar-nav.html",
+    ]
 }
 
-html_theme_options = {"collapse_navigation": False, "display_version": True}
+# The theme to use for HTML and HTML Help pages.  See the documentation for
+# a list of builtin themes.
+#
+html_theme = "sphinx_book_theme"
+
+html_theme_options = {
+    "repository_url": BASE_URL,
+    "use_repository_button": True,
+    "use_issues_button": True,
+    "use_download_button": True,
+    "use_sidenotes": True,
+    "logo_only": True,
+    "home_page_in_toc": False,
+    "show_toc_level": 2,
+}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ["assets", "_static"]
+
 html_css_files = [
     "css/custom.css",
 ]
 
-html_logo = os.path.join(os.path.dirname(__file__), "assets/logo_actris_ccress.png")
-# -- Options for HTML output -------------------------------------------------
+html_logo = LOGO_PATH
+html_favicon = LOGO_PATH
+html_title = "CCRES Weather Station"
 
-# The theme to use for HTML and HTML Help pages.  See the documentation for
-# a list of builtin themes.
-#
-html_theme = "sphinx_rtd_theme"
+# -- Custom code to run -------------------------------------------------
 
 make_plots()
