@@ -5,7 +5,7 @@ helps, and credit will always be given.
 
 You can contribute in many ways:
 
-## Types of Contributions
+## Types of Contributions
 
 
 ### Report Bugs
@@ -23,18 +23,18 @@ If you are reporting a bug, please include:
 Look through the GitHub issues for bugs. Anything tagged with "bug" and "help
 wanted" is open to whoever wants to implement it.
 
-### Implement Features
+### Implement Features
 
 Look through the GitHub issues for features. Anything tagged with "enhancement"
 and "help wanted" is open to whoever wants to implement it.
 
-### Write Documentation
+### Write Documentation
 
 CCRES Weather Station could always use more documentation, whether as part of the
 official CCRES Weather Station docs, in docstrings, or even on the web in blog posts,
 articles, and such.
 
-### Submit Feedback
+### Submit Feedback
 
 The best way to send feedback is to file an issue at https://github.com/ACTRIS-CCRES/ccres-weather-station/issues.
 
@@ -50,7 +50,7 @@ If you are proposing a feature:
 Ready to contribute? Here's how to set up `ccres_weather_station` for local development.
 
 1. Fork the `ccres_weather_station` repo on GitHub.
-2. Clone your fork locally::
+2. Clone your fork locally:
 
     $ git clone git@github.com:your_name_here/ccres_weather_station.git
 
@@ -77,9 +77,9 @@ Ready to contribute? Here's how to set up `ccres_weather_station` for local deve
     pre-commit install
     ```
 
-5. Make sure you have `git-LFS` installed.
+5. Make sure you have `git-lfs` installed, then run `git lfs install`.
 
-6. Create a branch for local development::
+6. Create a branch for local development:
 
     ```
     git checkout -b name-of-your-bugfix-or-feature
@@ -100,7 +100,7 @@ Ready to contribute? Here's how to set up `ccres_weather_station` for local deve
     git add <your-modified-files>
     ```
 
-9. Commit your changes and push your branch to GitHub::
+9. Commit your changes and push your branch to GitHub:
 
     ```
     git add .
@@ -110,7 +110,7 @@ Ready to contribute? Here's how to set up `ccres_weather_station` for local deve
 
 10.  Submit a pull request through the GitHub website.
 
-## Pull Request Guidelines
+## Pull Request Guidelines
 
 Before you submit a pull request, check that it meets these guidelines:
 
@@ -132,7 +132,7 @@ python -m pytest tests.test_ccres_weather_station
 
 A reminder for the maintainers on how to deploy.
 Make sure all your changes are committed (including an entry in HISTORY.rst).
-Then run::
+Then run:
 
 ```
 bump2version patch # possible: major / minor / patch / release_candidate / dev
