@@ -83,7 +83,7 @@ include = ["ccres_weather_station", "ccres_weather_station.*"]
 explicit_package_bases = true
 disallow_untyped_defs = true
 ignore_missing_imports = true
-exclude = ['build/','venv']
+exclude = ['build/','venv', "tests", "docs"]
 
 [tool.docformatter]
 recursive = true

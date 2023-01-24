@@ -1,7 +1,9 @@
 """The setup script."""
+from typing import Dict
+
 from setuptools import setup
 
-version = {}
+version: Dict[str, str] = {}
 with open("ccres_weather_station/__init__.py") as fp:
     exec(fp.read(), version)
 

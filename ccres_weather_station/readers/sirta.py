@@ -10,7 +10,7 @@ from ccres_weather_station.readers.base import BaseReader
 from ccres_weather_station.readers.register import register_reader
 
 
-def _sirta_date_parser(concatenated_column) -> Any:
+def _sirta_date_parser(concatenated_column: Any) -> Any:
     """_sirta_date_parser pandas will pass.
 
     1) Pass one or more arrays (as defined by parse_dates) as arguments
@@ -55,7 +55,6 @@ class SirtaReader(BaseReader):
             self.config.variables["pressure"].name: np.float32,
             self.config.variables["precipitation_rate"].name: np.float32,
         }
-        print(columns_map)
 
         names = list(columns_map.keys())
         number_positions = list(columns_map.values())
