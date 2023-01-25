@@ -31,7 +31,6 @@ LOGO_PATH = os.path.join(os.path.dirname(__file__), "assets/logo_actris_ccress.p
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    "sphinx_rtd_theme",
     "sphinx.ext.autodoc",
     "sphinx.ext.autosummary",
     "sphinx.ext.napoleon",
@@ -41,7 +40,6 @@ extensions = [
 
 
 def linkcode_resolve(domain, info):
-    print(info)
     if domain != "py":
         return None
     if not info["module"]:
