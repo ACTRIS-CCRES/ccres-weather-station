@@ -8,6 +8,8 @@
     <a href="https://github.com/ACTRIS-CCRES/ccres-weather-station"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
     <a href="https://codecov.io/gh/ACTRIS-CCRES/ccres-weather-station"><img alt="Coverage Status" src="https://codecov.io/gh/ACTRIS-CCRES/ccres-weather-station/branch/main/graph/badge.svg"></a>
     <a href="https://www.gnu.org/licenses/agpl-3.0"><img alt="License: GNU Affero General Public License v3.0" src="https://img.shields.io/badge/License-AGPL_v3-blue.svg"></a>
+    <a href="https://github.com/ACTRIS-CCRES/ccres-weather-station/issues"><img alt="Issue Badge" src="https://img.shields.io/github/issues/ACTRIS-CCRES/ccres-weather-station"></a>
+    <a href="https://github.com/ACTRIS-CCRES/ccres-weather-station/pulls"><img alt="Issue Badge" src="https://img.shields.io/github/issues-pr/ACTRIS-CCRES/ccres-weather-station"></a>
 </p>
 
 CCRES codes to convert weather data from text files to NetCDF files
