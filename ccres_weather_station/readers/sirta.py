@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Any, Union
+from typing import Any
 
 import numpy as np
 import pandas as pd
@@ -8,6 +8,7 @@ import xarray as xr
 from ccres_weather_station.config.config import Config
 from ccres_weather_station.readers.base import BaseReader
 from ccres_weather_station.readers.register import register_reader
+from ccres_weather_station.types import PathLike, PathsLike
 
 
 def _sirta_date_parser(concatenated_column: Any) -> Any:
@@ -35,7 +36,7 @@ class SirtaReader(BaseReader):
     def __init__(self, config: Config):
         self.config = config
 
-    def read(self, path: Union[str, Path]) -> xr.Dataset:
+    def read_file(self, path: PathLike) -> xr.Dataset:
         path = Path(path)
         columns_map = {
             self.config.coords["time"].name: 0,
@@ -71,6 +72,12 @@ class SirtaReader(BaseReader):
         )
         df = df.set_index(self.config.coords["time"].name)
         return df.to_xarray()
+
+    def read_files(self, files: PathsLike) -> xr.Dataset:
+        datasets = []
+        for file in files:
+            datasets.append(self.read_file(file))
+        return xr.concat(datasets, dim=self.config.coords["time"].name)
 
 
 register_reader(SirtaReader, "sirta")

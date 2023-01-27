@@ -14,7 +14,19 @@ SIRTA_FILE = Path(
 
 def test_sirta_reader():
     config = Config.default()
-    ds = SirtaReader(config=config).read(SIRTA_FILE)
+    ds = SirtaReader(config=config).read_file(SIRTA_FILE)
+    time = ds.coords[config.coords["time"].name]
+
+    assert isinstance(ds, xr.Dataset)
+    assert len(time) == 1440
+    assert time[0] == pd.Timestamp(2020, 10, 10, 0, 0, 0)
+    assert time[-1] == pd.Timestamp(2020, 10, 10, 23, 59, 0)
+    assert config.coords["time"].name in ds.coords
+
+
+def test_sirta_reader_one_file():
+    config = Config.default()
+    ds = SirtaReader(config=config).read_files([SIRTA_FILE])
     time = ds.coords[config.coords["time"].name]
 
     assert isinstance(ds, xr.Dataset)

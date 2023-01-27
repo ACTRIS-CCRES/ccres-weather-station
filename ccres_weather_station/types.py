@@ -1,4 +1,5 @@
 from pathlib import Path
-from typing import Union
+from typing import List, Union
 
 PathLike = Union[str, Path]
+PathsLike = List[PathLike]

@@ -8,7 +8,10 @@ from ccres_weather_station.types import PathLike
 
 def test_register_good_reader():
     class GoodReader(BaseReader):
-        def read(self, file: PathLike) -> xr.Dataset:
+        def read_file(self, file: PathLike) -> xr.Dataset:
+            return xr.Dataset()
+
+        def read_files(self, file: PathLike) -> xr.Dataset:
             return xr.Dataset()
 
     assert "good_reader" not in READERS
