@@ -1,43 +1,68 @@
-[variables.meta.wind_speed]
+[variables.wind_speed]
 name = "wind_speed"
+
+[variables.wind_speed.meta]
 standard_name = "wind_speed"
 long_name = "Wind speed"
 units = "m.s^-1"
 
-[variables.meta.wind_direction]
+
+[variables.wind_direction]
 name = "wind_direction"
-standard_name = "wind_to_direction"
+
+[variables.wind_direction.meta]
+standard_name = "wind_from_direction"
 long_name = "Wind direction"
 units = "degree"
 
-[variables.meta.relative_humidity]
+[variables.relative_humidity]
 name = "relative_humidity"
+
+[variables.relative_humidity.meta]
 standard_name = "relative_humidity"
 long_name = "Relative humidity"
 units = "%"
 
-[variables.meta.pressure]
+[variables.pressure]
 name = "pressure"
+
+[variables.pressure.meta]
 standard_name = "surface_air_pressure"
 long_name = "Atmospheric air pressure"
 units = "hPa"
 
-[variables.meta.precipitation_rate]
+[variables.precipitation_rate]
 name = "precipitation_rate"
+
+[variables.precipitation_rate.meta]
 standard_name = "lwe_precipitation_rate"
 long_name = "Precipitation rate"
 units = "mm.h^-1"
 
-[variables.meta.air_temperature]
+[variables.air_temperature]
 name = "air_temperature"
+
+[variables.air_temperature.meta]
 standard_name = "air_temperature"
 long_name = "Air temperature"
 units = "Celsius"
 
-[coords.meta.time]
+[variables.rain_rate]
+name = "rain_rate"
+
+[variables.rain_rate.meta]
+standard_name = "rainfall_rate"
+long_name = "Rainfall rate"
+units = "mm.min^-1"
+
+[coords.time]
 name = "time"
+
+[coords.time.meta]
 standard_name = "time"
 long_name = "Date"
+
+[coords.time.encoding]
 units = "seconds since 1970-01-01"
 calendar = "standard"
 

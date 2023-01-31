@@ -3,6 +3,7 @@
 ```{toctree}
 :maxdepth: 2
 
-cli.md
-readers.md
+./cli.md
+./readers.md
+./config.md
 ```
