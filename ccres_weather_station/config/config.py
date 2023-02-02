@@ -1,3 +1,4 @@
+import logging
 from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Dict, Iterator, Optional, Tuple
@@ -6,6 +7,7 @@ import toml
 
 from ccres_weather_station.types import PathLike
 
+lgr = logging.getLogger(__name__)
 DEFAULT_CONFIG = Path(__file__).parent / "default.toml"
 
 
@@ -24,9 +26,28 @@ class VariableMeta:
 
 @dataclass(repr=True)
 class VariableEncoding:
-    type: Optional[str] = None
-    compression: Optional[str] = None
+    """xarray encoding wrapper for variables.
+
+    Notes
+    -----
+        The dtype must be numpy-like but without the np.
+        So instead of np.float32, we need float32
+
+    Notes
+    -----
+        See https://docs.xarray.dev/en/stable/user-guide/io.html\
+            #reading-encoded-data
+    """
+
+    zlib: Optional[bool] = None
+    shuffle: Optional[bool] = None
+    complevel: Optional[int] = None
+    fletcher32: Optional[bool] = None
+    contiguous: Optional[bool] = None
+    chunksizes: Optional[int] = None
+    dtype: Optional[str] = None
     units: Optional[str] = None
+    calendar: Optional[str] = None
 
     def __iter__(self) -> Iterator[Tuple[str, str]]:
         return iter(asdict(self).items())
@@ -52,8 +73,26 @@ class CoordMeta:
 
 @dataclass(repr=True)
 class CoordEncoding:
-    type: Optional[str] = None
-    compression: Optional[str] = None
+    """xarray encoding wrapper for coordinates.
+
+    Notes
+    -----
+        The dtype must be numpy-like but without the np.
+        So instead of np.float32, we need float32
+
+    Notes
+    -----
+        See https://docs.xarray.dev/en/stable/user-guide/io.html\
+            #reading-encoded-data
+    """
+
+    zlib: Optional[bool] = None
+    shuffle: Optional[bool] = None
+    complevel: Optional[int] = None
+    fletcher32: Optional[bool] = None
+    contiguous: Optional[bool] = None
+    chunksizes: Optional[int] = None
+    dtype: Optional[str] = None
     units: Optional[str] = None
     calendar: Optional[str] = None
 
@@ -85,7 +124,8 @@ class Config:
     def _get_meta_var(d: Dict) -> Dict[str, VariableConfig]:
         _variables: Dict[str, VariableConfig] = {}
         if "variables" not in d:
-            raise ValueError("Need description of at least one variable in config file")
+            lgr.warning("No 'variables' section found in configuration file")
+            return _variables
 
         for var in d["variables"]:
             if "name" not in d["variables"][var]:
@@ -114,7 +154,8 @@ class Config:
     def _get_meta_coord(d: Dict) -> Dict[str, CoordConfig]:
         _coords: Dict[str, CoordConfig] = {}
         if "coords" not in d:
-            raise ValueError("Need description of at least one coord in config file")
+            lgr.warning("No 'coords' section found in configuration file")
+            return _coords
 
         for coord in d["coords"]:
             if "name" not in d["coords"][coord]:

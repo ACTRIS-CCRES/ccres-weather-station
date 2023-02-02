@@ -15,6 +15,11 @@ NO_ATTRS = Path(Path(__file__).parent.parent / "data/config_files/no_attrs.toml"
 NO_VARS = Path(Path(__file__).parent.parent / "data/config_files/no_vars.toml")
 NO_COORDS = Path(Path(__file__).parent.parent / "data/config_files/no_coords.toml")
 
+NO_VAR_NAME = Path(Path(__file__).parent.parent / "data/config_files/no_var_name.toml")
+NO_COORD_NAME = Path(
+    Path(__file__).parent.parent / "data/config_files/no_coord_name.toml"
+)
+
 
 def test_good_config():
     config = Config.from_toml(DEFAULT_CONFIG_FILE)
@@ -54,11 +59,21 @@ def test_add_no_global_attrs():
     assert config.attrs != {}
 
 
-def test_no_variables_error():
-    with pytest.raises(ValueError):
-        Config.from_toml(NO_VARS)
+def test_no_variables():
+    config = Config.from_toml(NO_VARS)
+    assert config.variables == {}
 
 
-def test_no_coords_error():
+def test_no_coords():
+    config = Config.from_toml(NO_COORDS)
+    assert config.coords == {}
+
+
+def test_no_variables_name_error():
     with pytest.raises(ValueError):
-        Config.from_toml(NO_COORDS)
+        Config.from_toml(NO_VAR_NAME)
+
+
+def test_no_coords_name_error():
+    with pytest.raises(ValueError):
+        Config.from_toml(NO_COORD_NAME)
