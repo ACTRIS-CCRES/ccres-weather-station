@@ -14,7 +14,7 @@ class LogLevels(Enum):
 
 
 def get_log_level_from_count(count: int) -> LogLevels:
-    """get_log_level_from_count Dispatch the verbose count to Loglevels enum.
+    """Dispatch the verbose count to Loglevels enum.
 
     Parameters
     ----------
@@ -45,7 +45,7 @@ def add_stream_logging(logger: logging.Logger, level: LogLevels) -> logging.Logg
 
 
 def init_logger(level: LogLevels) -> None:
-    """init_logger Init the stream logger for the project.
+    """Init the stream logger for the project.
 
     Parameters
     ----------
@@ -54,6 +54,13 @@ def init_logger(level: LogLevels) -> None:
     """
     # Root logger
     logger = logging.getLogger(name="ccres_weather_station")
+
+    # As logging in module-wide and handlers stack themselves
+    # We need to clean it for testing purposes.
+    # Otherwise we get two handlers
+    for handler in logger.handlers:
+        logger.removeHandler(handler)
+
     debug_level = logging.getLevelName(LogLevels.DEBUG.name)
     logger.setLevel(debug_level)
 

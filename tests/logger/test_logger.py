@@ -18,5 +18,6 @@ def test_log_level_from_count():
 def test_init_logger():
     init_logger(level=LogLevels.INFO)
     lgr = logging.getLogger("ccres_weather_station")
+    print(lgr.handlers)
     assert logging.getLevelName(lgr.handlers[0].level) == "INFO"
     assert LOG_FORMAT in logging.getLevelName(lgr.handlers[0].formatter._fmt)

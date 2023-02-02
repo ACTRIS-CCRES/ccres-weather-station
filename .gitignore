@@ -5,6 +5,10 @@ documentation
 # Coverage data
 coverage
 
+# tests outputs
+tests/data/outputs/*
+!tests/data/outputs/.placeholder
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
