@@ -6,4 +6,6 @@
 ./cli.md
 ./readers.md
 ./config.md
+./bounds.md
+./writers.md
 ```
