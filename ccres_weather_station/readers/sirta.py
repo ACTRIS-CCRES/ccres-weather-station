@@ -7,12 +7,13 @@ import xarray as xr
 
 from ccres_weather_station.config.config import Config
 from ccres_weather_station.readers.base import BaseReader
-from ccres_weather_station.readers.register import register_reader
 from ccres_weather_station.types import PathLike, PathsLike
 
 
 def _sirta_date_parser(concatenated_column: Any) -> Any:
-    """_sirta_date_parser pandas will pass.
+    """Parse the date for SIRTA CSV.
+
+    pandas will pass :
 
     1) Pass one or more arrays (as defined by parse_dates) as arguments
     2) concatenate (row-wise) the string values from the columns defined by
@@ -78,6 +79,3 @@ class SirtaReader(BaseReader):
         for file in files:
             datasets.append(self.read_file(file))
         return xr.concat(datasets, dim=self.config.coords["time"].name)
-
-
-register_reader(SirtaReader, "sirta")

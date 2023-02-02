@@ -2,11 +2,15 @@ from abc import ABC, abstractmethod
 
 import xarray as xr
 
+from ccres_weather_station.config.config import Config
 from ccres_weather_station.types import PathLike, PathsLike
 
 
 class BaseReader(ABC):
-    """BaseReader Base reader to implement for registering readers."""
+    """Base reader to implement for registering readers."""
+
+    def __init__(self, config: Config):
+        self.config = config
 
     @abstractmethod
     def read_file(self, file: PathLike) -> xr.Dataset:
