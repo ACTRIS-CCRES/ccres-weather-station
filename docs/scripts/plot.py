@@ -2,7 +2,9 @@
 
 You can then access to your plot through the docs. For doing this, the
 make_plots function is called in the conf.py directory.
+
 """
+
 import os
 
 BASE_DIR = os.path.dirname(__file__)
@@ -13,6 +15,7 @@ def doc_plot() -> None:
     """doc_plot Generate plot when building docs.
 
     Save it in EXPORT_FOLDER.
+
     """
 
 

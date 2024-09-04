@@ -1,6 +1,7 @@
 """Module that handle some attributes generation.
 
 Also handle saving of file.
+
 """
 
 import datetime as dt
@@ -50,6 +51,7 @@ def _get_software_git_infos() -> str:
     -------
     str
         formatted string with software infos
+
     """
     try:
         from git import InvalidGitRepositoryError, Repo
@@ -82,6 +84,7 @@ def add_created_date(ds: xr.Dataset) -> xr.Dataset:
     """Add created_date field into the dataset.
 
     Add the datetime.now() string representation
+
     """
     ds.attrs["created_date"] = str(dt.datetime.utcnow())
     return ds
@@ -91,6 +94,7 @@ def add_date_metadata_modified(ds: xr.Dataset) -> xr.Dataset:
     """Add metadata_modified field into the dataset.
 
     Add the datetime.now() string representation
+
     """
     ds.attrs["metadata_modified"] = str(dt.datetime.utcnow())
     return ds
@@ -143,6 +147,7 @@ class ConfigWriter:
         -------
         xr.Dataset
             The dataset with metadata added
+
         """
         ds = self._add_var_attrs(ds)
         ds = self._add_coord_attrs(ds)
@@ -195,6 +200,7 @@ class ConfigWriter:
         -------
         Dict[str, Dict[str, str]]
             Dictionnary of encoding terms
+
         """
         encoding: Dict[str, Dict[str, str]] = {}
         encoding = self._get_var_encoding(ds, encoding)
