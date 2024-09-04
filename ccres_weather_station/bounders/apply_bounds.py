@@ -31,5 +31,6 @@ def apply_bounds(
     -------
     xr.Dataset
         Cutted xarray dataset
+
     """
     return ds.sel({config.coords["time"].name: slice(start_date, end_date)})

@@ -29,6 +29,7 @@ def _sirta_date_parser(concatenated_column: Any) -> Any:
     Any
         Types described here :
         https://pandas.pydata.org/docs/reference/api/pandas.to_datetime.html
+
     """
     return pd.to_datetime(concatenated_column, format="%Y-%m-%dT%H:%M:%SZ")
 

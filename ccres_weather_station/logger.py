@@ -25,6 +25,7 @@ def get_log_level_from_count(count: int) -> LogLevels:
     -------
     LogLevels
         Corresponding Enum from the count
+
     """
     level = LogLevels.ERROR
     if count == 1:
@@ -51,6 +52,7 @@ def init_logger(level: LogLevels) -> None:
     ----------
     level : LogLevels
         Enum corresponding to the level we want
+
     """
     # Root logger
     logger = logging.getLogger(name="ccres_weather_station")

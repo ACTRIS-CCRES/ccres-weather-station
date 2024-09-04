@@ -1,6 +1,5 @@
 """Tests for `ccres_weather_station` package."""
 
-
 from click.testing import CliRunner
 
 from ccres_weather_station.cli import cli

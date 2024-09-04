@@ -26,7 +26,7 @@ class VariableMeta:
 
 @dataclass(repr=True)
 class VariableEncoding:
-    """xarray encoding wrapper for variables.
+    """Xarray encoding wrapper for variables.
 
     Notes
     -----
@@ -37,6 +37,7 @@ class VariableEncoding:
     -----
         See https://docs.xarray.dev/en/stable/user-guide/io.html\
             #reading-encoded-data
+
     """
 
     zlib: Optional[bool] = None
@@ -73,7 +74,7 @@ class CoordMeta:
 
 @dataclass(repr=True)
 class CoordEncoding:
-    """xarray encoding wrapper for coordinates.
+    """Xarray encoding wrapper for coordinates.
 
     Notes
     -----
@@ -84,6 +85,7 @@ class CoordEncoding:
     -----
         See https://docs.xarray.dev/en/stable/user-guide/io.html\
             #reading-encoded-data
+
     """
 
     zlib: Optional[bool] = None
@@ -114,6 +116,7 @@ class Config:
     - the variables names
     - the default metadata for global attributes
     - the default metadata for variables attributes
+
     """
 
     variables: Dict[str, VariableConfig]
@@ -203,6 +206,7 @@ class Config:
         -------
         Config
             The interpretation of the Toml file
+
         """
         path = Path(path)
 
@@ -228,6 +232,7 @@ class Config:
         -------
         Config
             The interpretation of the Toml file
+
         """
         return cls.from_toml(DEFAULT_CONFIG)
 
@@ -296,6 +301,7 @@ class Config:
         -------
         Config
             Updated config file
+
         """
         path = Path(path)
         other = Config.from_toml(path)

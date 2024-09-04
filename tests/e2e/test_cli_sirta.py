@@ -1,6 +1,5 @@
 """Tests for `ccres_weather_station` package."""
 
-
 from pathlib import Path
 
 from click.testing import CliRunner

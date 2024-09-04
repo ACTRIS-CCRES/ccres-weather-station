@@ -1,4 +1,5 @@
 """Top-level package for CCRES Weather Station."""
+
 version_str = "0.1.0-dev2"
 version_tuple = version_str.split(".")
 

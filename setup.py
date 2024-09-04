@@ -1,4 +1,5 @@
 """The setup script."""
+
 from typing import Dict
 
 from setuptools import setup
